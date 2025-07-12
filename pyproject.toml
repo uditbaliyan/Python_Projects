@@ -1,7 +1,35 @@
 [project]
 name = "python-projects"
 version = "0.1.0"
-description = "Add your description here"
+description = "A collection of Python projects from beginner to advanced"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = []
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.2.0",
+    "ruff>=0.12.3",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+extend-exclude = ["__pycache__", "*.db", "*.pyc"]
+preview = true  # Enable experimental rules
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "PL", "SIM", "N"]
+ignore = ["E501"]  # ignore line length if formatting is handled separately
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+# [build-system]
+# requires = ["uv"]
+# build-backend = "uv"

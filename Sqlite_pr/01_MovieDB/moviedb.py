@@ -1,5 +1,16 @@
 import sqlite3
+from dataclasses import dataclass
 from datetime import datetime
+
+
+@dataclass
+class UserInfo:
+    fname: str
+    lname: str
+    email: str
+    password: str
+    bio: str
+
 
 class MovieDB:
     def __init__(self, db_path):
@@ -80,29 +91,50 @@ class MovieDB:
             COMMIT;
         """)
 
-    def signup(self, fname, lname, email, password, bio):
-        self.cur.execute("""
+    def signup(self, user: UserInfo):
+        self.cur.execute(
+            """
             INSERT INTO user (first_name, last_name, email, password, bio, creation_date, last_login)
             VALUES (?, ?, ?, ?, ?, ?, ?)
-        """, (fname, lname, email, password, bio, datetime.now(), datetime.now()))
+            """,
+            (
+                user.fname,
+                user.lname,
+                user.email,
+                user.password,
+                user.bio,
+                datetime.now(),
+                datetime.now(),
+            ),
+        )
         self.conn.commit()
 
     def login(self, email, password):
-        self.cur.execute("SELECT user_id FROM user WHERE email=? AND password=?", (email, password))
+        self.cur.execute(
+            "SELECT user_id FROM user WHERE email=? AND password=?", (email, password)
+        )
         user = self.cur.fetchone()
         if user:
             now = datetime.now()
-            self.cur.execute("UPDATE user SET last_login=? WHERE user_id=?", (now, user[0]))
-            self.cur.execute("INSERT INTO login_history (user_id, login_time) VALUES (?, ?)", (user[0], now))
+            self.cur.execute(
+                "UPDATE user SET last_login=? WHERE user_id=?", (now, user[0])
+            )
+            self.cur.execute(
+                "INSERT INTO login_history (user_id, login_time) VALUES (?, ?)",
+                (user[0], now),
+            )
             self.conn.commit()
             return user[0]
         return None
 
     def add_movie(self, name, desc, date, director):
-        self.cur.execute("""
+        self.cur.execute(
+            """
             INSERT INTO movie (name, description, release_date, director)
             VALUES (?, ?, ?, ?)
-        """, (name, desc, date, director))
+        """,
+            (name, desc, date, director),
+        )
         self.conn.commit()
         print("Movie added successfully.\n")
 
@@ -110,11 +142,16 @@ class MovieDB:
         self.cur.execute("SELECT movie_id FROM movie WHERE name=?", (movie_name,))
         movie = self.cur.fetchone()
         if movie:
-            self.cur.execute("INSERT INTO genre (movie_id, genre) VALUES (?, ?)", (movie[0], genre))
+            self.cur.execute(
+                "INSERT INTO genre (movie_id, genre) VALUES (?, ?)", (movie[0], genre)
+            )
             self.conn.commit()
 
     def add_actor(self, name, dob, movies_count):
-        self.cur.execute("INSERT INTO actor (name, dob, movies_count) VALUES (?, ?, ?)", (name, dob, movies_count))
+        self.cur.execute(
+            "INSERT INTO actor (name, dob, movies_count) VALUES (?, ?, ?)",
+            (name, dob, movies_count),
+        )
         self.conn.commit()
 
     def link_actor_to_movie(self, movie_name, actor_name):
@@ -123,7 +160,10 @@ class MovieDB:
         self.cur.execute("SELECT actor_id FROM actor WHERE name=?", (actor_name,))
         actor = self.cur.fetchone()
         if movie and actor:
-            self.cur.execute("INSERT OR IGNORE INTO movie_actor (movie_id, actor_id) VALUES (?, ?)", (movie[0], actor[0]))
+            self.cur.execute(
+                "INSERT OR IGNORE INTO movie_actor (movie_id, actor_id) VALUES (?, ?)",
+                (movie[0], actor[0]),
+            )
             self.conn.commit()
 
     def review_movie(self, user_id, movie_name, rating, review_text=""):
@@ -134,14 +174,21 @@ class MovieDB:
             return
         movie_id = row[0]
 
-        self.cur.execute("""
+        self.cur.execute(
+            """
             INSERT OR REPLACE INTO collection (user_id, movie_id, rating, review)
             VALUES (?, ?, ?, ?)
-        """, (user_id, movie_id, rating, review_text))
+        """,
+            (user_id, movie_id, rating, review_text),
+        )
 
-        self.cur.execute("SELECT AVG(rating) FROM collection WHERE movie_id=?", (movie_id,))
+        self.cur.execute(
+            "SELECT AVG(rating) FROM collection WHERE movie_id=?", (movie_id,)
+        )
         avg_rating = self.cur.fetchone()[0]
-        self.cur.execute("UPDATE movie SET rating=? WHERE movie_id=?", (avg_rating, movie_id))
+        self.cur.execute(
+            "UPDATE movie SET rating=? WHERE movie_id=?", (avg_rating, movie_id)
+        )
         self.conn.commit()
         print("Review added.\n")
 
@@ -150,13 +197,22 @@ class MovieDB:
         row = self.cur.fetchone()
         if row:
             movie_id = row[0]
-            self.cur.execute("SELECT watchlist FROM collection WHERE user_id=? AND movie_id=?", (user_id, movie_id))
+            self.cur.execute(
+                "SELECT watchlist FROM collection WHERE user_id=? AND movie_id=?",
+                (user_id, movie_id),
+            )
             entry = self.cur.fetchone()
             if entry:
                 new_val = not entry[0]
-                self.cur.execute("UPDATE collection SET watchlist=? WHERE user_id=? AND movie_id=?", (new_val, user_id, movie_id))
+                self.cur.execute(
+                    "UPDATE collection SET watchlist=? WHERE user_id=? AND movie_id=?",
+                    (new_val, user_id, movie_id),
+                )
             else:
-                self.cur.execute("INSERT INTO collection (user_id, movie_id, watchlist) VALUES (?, ?, ?) ", (user_id, movie_id, True))
+                self.cur.execute(
+                    "INSERT INTO collection (user_id, movie_id, watchlist) VALUES (?, ?, ?) ",
+                    (user_id, movie_id, True),
+                )
             self.conn.commit()
             print("Watchlist updated.\n")
 
@@ -165,7 +221,10 @@ class MovieDB:
         row = self.cur.fetchone()
         if row:
             friend_id = row[0]
-            self.cur.execute("INSERT OR IGNORE INTO friendlist (user_id, friend_id) VALUES (?, ?)", (user_id, friend_id))
+            self.cur.execute(
+                "INSERT OR IGNORE INTO friendlist (user_id, friend_id) VALUES (?, ?)",
+                (user_id, friend_id),
+            )
             self.conn.commit()
             print("Friend added.\n")
         else:
@@ -181,10 +240,13 @@ class MovieDB:
             print(f"{name} - {rating}/10")
 
     def search_movie(self, keyword):
-        self.cur.execute("""
+        self.cur.execute(
+            """
             SELECT name, description, rating FROM movie
             WHERE name LIKE ? OR description LIKE ?
-        """, (f"%{keyword}%", f"%{keyword}%"))
+        """,
+            (f"%{keyword}%", f"%{keyword}%"),
+        )
         results = self.cur.fetchall()
         if results:
             for name, desc, rating in results:

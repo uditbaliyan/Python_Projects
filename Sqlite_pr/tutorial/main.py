@@ -1,6 +1,5 @@
 import sqlite3
 from pathlib import Path
-import os 
 
 
 def create_connection(db_file):
@@ -11,6 +10,7 @@ def create_connection(db_file):
     except sqlite3.Error as e:
         print(f"[Error] Connection failed: {e}")
         return None
+
 
 def create_table(cursor):
     """Create movie table if it doesn't exist."""
@@ -25,16 +25,20 @@ def create_table(cursor):
     except sqlite3.Error as e:
         print(f"[Error] Failed to create table: {e}")
 
+
 def insert_data(cursor):
     """Insert movie data safely using parameters."""
     try:
         movies = [
-            ('Monty Python and the Holy Grail', 1975, 8.2),
-            ('And Now for Something Completely Different', 1971, 7.5)
+            ("Monty Python and the Holy Grail", 1975, 8.2),
+            ("And Now for Something Completely Different", 1971, 7.5),
         ]
-        cursor.executemany("INSERT INTO movie (title, year, score) VALUES (?, ?, ?)", movies)
+        cursor.executemany(
+            "INSERT INTO movie (title, year, score) VALUES (?, ?, ?)", movies
+        )
     except sqlite3.Error as e:
         print(f"[Error] Failed to insert data: {e}")
+
 
 def fetch_data(cursor):
     """Fetch and print all movie records."""
@@ -47,11 +51,12 @@ def fetch_data(cursor):
     except sqlite3.Error as e:
         print(f"[Error] Failed to fetch data: {e}")
 
+
 def main():
     # Absolute path to the current script
     current_file = Path(__file__).resolve()
     current_dir = current_file.parent
-    conn = create_connection(current_dir/"tutorial.db")
+    conn = create_connection(current_dir / "tutorial.db")
     if conn is None:
         return
 
@@ -66,6 +71,7 @@ def main():
     finally:
         conn.close()
         print("📦 Connection closed.")
+
 
 if __name__ == "__main__":
     print(f"variable = {__name__}")
