@@ -92,21 +92,22 @@ class MovieDB:
         """)
 
     def signup(self, user: UserInfo):
-        self.cur.execute(
-            """
-            INSERT INTO user (first_name, last_name, email, password, bio, creation_date, last_login)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-            """,
-            (
-                user.fname,
-                user.lname,
-                user.email,
-                user.password,
-                user.bio,
-                datetime.now(),
-                datetime.now(),
-            ),
+        sql = (
+            "INSERT INTO user (first_name, last_name, email, password, bio, "
+            "creation_date, last_login) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?)"
         )
+        values = (
+            user.fname,
+            user.lname,
+            user.email,
+            user.password,
+            user.bio,
+            datetime.now(),
+            datetime.now(),
+        )
+
+        self.cur.execute(sql, values)
         self.conn.commit()
 
     def login(self, email, password):
@@ -210,9 +211,17 @@ class MovieDB:
                 )
             else:
                 self.cur.execute(
-                    "INSERT INTO collection (user_id, movie_id, watchlist) VALUES (?, ?, ?) ",
+                    """
+                    INSERT INTO collection (
+                        user_id,
+                        movie_id,
+                        watchlist
+                    )
+                    VALUES (?, ?, ?)
+                    """,
                     (user_id, movie_id, True),
                 )
+
             self.conn.commit()
             print("Watchlist updated.\n")
 

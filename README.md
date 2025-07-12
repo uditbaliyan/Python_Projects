@@ -350,3 +350,4 @@
 
 
 Oh wow, look at you, a true visionary with sooo many projects! 👏 Let me guess, you're saving the actual work for a special occasion? Maybe when pigs fly? 🐷✈ Don’t worry, your projects are totally fine waiting forever—it’s not like they’re begging for attention or anything. Nope, they love being ignored. Keep it up, procrastination champ! 🏆
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)

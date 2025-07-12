@@ -20,7 +20,7 @@ preview = true  # Enable experimental rules
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "PL", "SIM", "N"]
-ignore = ["E501"]  # ignore line length if formatting is handled separately
+# ignore = ["E501"]  # ignore line length if formatting is handled separately
 
 [tool.ruff.format]
 quote-style = "double"
