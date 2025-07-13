@@ -127,3 +127,40 @@
   * Store questions in DB
   * Random quiz generation
   * Track high scores
+
+
+Several great websites where you can **practice SQL (Structured Query Language)** with **interactive editors**, **real-time feedback**, and **challenges**.
+
+---
+
+### 🔝 **Top SQL Practice Websites**
+
+| Platform                        | Features                                                               | Free        |
+| ------------------------------- | ---------------------------------------------------------------------- | ----------- |
+| **LeetCode** (SQL section)      | Real interview SQL problems, databases with schema, interactive editor | ✅ Yes       |
+| **HackerRank** (SQL domain)     | Guided tracks: Basic → Advanced, schema visualization, editor          | ✅ Yes       |
+| **Mode Analytics SQL Tutorial** | Great for beginners, embedded editor, visual output                    | ✅ Yes       |
+| **SQLZoo**                      | Learn + practice together with live feedback                           | ✅ Yes       |
+| **W3Schools SQL Editor**        | Simple "try it yourself" examples                                      | ✅ Yes       |
+| **StrataScratch**               | Real-world datasets, interview-focused questions                       | ✅ Some free |
+| **DataLemur**                   | Interview-style SQL questions, detailed solutions                      | ✅ Yes       |
+| **Kaggle (SQL Notebooks)**      | Write SQL on real datasets in a Jupyter-like notebook                  | ✅ Yes       |
+| **DB-Fiddle / SQL Fiddle**      | Run SQL directly, compare multiple DB engines                          | ✅ Yes       |
+| **8weeksqlchallenge.com**       | Projects based on realistic business cases                             | ✅ Yes       |
+
+---
+
+### 🔰 Recommendation for Beginners:
+
+Start with:
+
+* ✅ [HackerRank SQL](https://www.hackerrank.com/domains/tutorials/10-days-of-sql)
+* ✅ [SQLZoo](https://sqlzoo.net/)
+* ✅ [W3Schools SQL](https://www.w3schools.com/sql/)
+
+Then move on to:
+
+* 🔥 [LeetCode SQL](https://leetcode.com/problemset/database/)
+* 💼 [StrataScratch](https://www.stratascratch.com/)
+* 📊 [8 Week SQL Challenge](https://8weeksqlchallenge.com/)
+
