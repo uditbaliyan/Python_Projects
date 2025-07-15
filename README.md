@@ -22,8 +22,11 @@
 
 - [ ] Image Converter  
   - [ ] Convert image formats (e.g., JPG to PNG) using Pillow.  
-  - [ ] Include batch processing for multiple files (Bonus).  
-
+  - [ ] Include batch processing for multiple files (Bonus). 
+ 
+ - [ ] Image ASCII  
+  - [ ] Convert image using Pillow.  
+ 
 - [ ] Weather App  
   - [ ] Fetch current weather data using APIs like OpenWeatherMap.  
   - [ ] Add a GUI for better presentation (Bonus).  

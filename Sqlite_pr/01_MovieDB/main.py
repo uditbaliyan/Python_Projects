@@ -3,8 +3,6 @@ from pathlib import Path
 
 from moviedb import MovieDB, UserInfo
 
-# ... (UserInfo and MovieDB classes remain the same as provided previously) ...
-
 
 def handle_login_or_signup(db):
     user_id = None
@@ -78,7 +76,6 @@ def handle_add_genre_to_existing_movie(db):
     db.add_genre(movie_name, genre)
 
 
-# Define handle_add_actor, handle_link_actor_to_movie, etc.
 def handle_add_actor(db):
     name = input("Actor name: ")
     dob = input("DOB (YYYY-MM-DD): ")
