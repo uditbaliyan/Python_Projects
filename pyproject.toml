@@ -5,7 +5,9 @@ description = "A collection of Python projects from beginner to advanced"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "art>=6.5",
     "ascii-magic>=2.3.0",
+    "pymupdf>=1.26.3",
 ]
 
 [dependency-groups]
