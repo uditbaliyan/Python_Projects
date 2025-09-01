@@ -8,11 +8,14 @@ dependencies = [
     "art>=6.5",
     "ascii-magic>=2.3.0",
     "pymupdf>=1.26.3",
+    "rich>=14.1.0",
+    "ty>=0.0.1a17",
 ]
 
 [dependency-groups]
 dev = [
     "pre-commit>=4.2.0",
+    "pytest>=8.4.1",
     "ruff>=0.12.3",
 ]
 
