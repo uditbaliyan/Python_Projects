@@ -12,6 +12,17 @@ from typing import Dict, Tuple, List
 from datetime import datetime
 
 
+# writing some exceptions but not using it
+class InsuficentFunds(Exception):
+    def __init__(self, *args: object) -> None:
+        super().__init__(*args)
+
+
+class NegativeAmount(Exception):
+    def __init__(self, *args: object) -> None:
+        super().__init__(*args)
+
+
 class Customer:
     def __init__(self, name: str, customer_id: int):
         self.name = name
