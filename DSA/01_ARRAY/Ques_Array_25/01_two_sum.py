@@ -1,4 +1,5 @@
 from typing import List, Optional, Tuple
+from itertools import combinations
 
 
 def two_sum_two_pointer(arr: List[int], target: int) -> Optional[Tuple[int, int]]:
@@ -81,6 +82,19 @@ def two_sum_brute_force(arr: List[int], target: int) -> Optional[Tuple[int, int]
     return None
 
 
+def two_sum_brute_force_2(arr: list[int], target: int) -> bool:
+    """
+    Naive brute-force using itertools,
+    combinations fuction.
+    Time complexity:
+
+    """
+    for combination in combinations(arr, 2):
+        if sum(combination) == target:
+            return True
+    return False
+
+
 def main():
     test_cases = [
         ([2, 7, 11, 15], 9),  # Expected: (2, 7) or indices (0, 1)
@@ -98,12 +112,13 @@ def main():
         two_sum_exists_oneliner,
         two_sum_set_lookup,
         two_sum_brute_force,
+        two_sum_brute_force_2,
     ]
 
     for i, (arr, target) in enumerate(test_cases):
         print(f"\nTest Case {i + 1}: arr = {arr}, target = {target}")
         for method in methods:
-            result = method(arr.copy())
+            result = method(arr.copy(), target)
             print(f"{method.__name__}: {result}")
 
 
