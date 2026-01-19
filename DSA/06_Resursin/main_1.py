@@ -6,6 +6,7 @@ def first_n_sum(num: int) -> int:
 
 
 def is_even(num: int) -> bool:
+    """"""
     return True if num % 2 == 0 else False
 
 
@@ -14,6 +15,13 @@ def first_n_even_sum(num: int, start: int = 0) -> int:
     if num <= start:
         return num
     return start + first_n_even_sum(num, start + 2)
+
+
+def factorial(num: int) -> int:
+    """:===:"""
+    if num in [0, 1]:
+        return num
+    return factorial(num - 1) + factorial(num - 2)
 
 
 def first_n_odd_sum(num: int, start: int = 1) -> int:
@@ -27,6 +35,7 @@ def main() -> None:
     # print(first_n_sum(5))
     print(first_n_odd_sum(5))
     print(first_n_even_sum(6))
+    print(factorial(6))
 
 
 if __name__ == "__main__":
